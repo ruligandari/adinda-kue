@@ -56,6 +56,7 @@ $routes->group('app', function ($routes) {
     $routes->get('profile', 'Mobile\ProfileController::index');
     $routes->get('scan', 'Mobile\ScannerController::index');
     $routes->get('result/(:any)', 'Mobile\ScannerController::result/$1');
+    $routes->get('info-aplikasi', 'Mobile\InfoAplikasi::index');
 });
 
 /*

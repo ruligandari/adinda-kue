@@ -28,7 +28,7 @@
                     </div>
                     <div class="item-menu text-center">
                         <div class="menu-icon">
-                            <a href="" class="danger" style="font-size: 40px;">
+                            <a href="<?= base_url('app/info-aplikasi') ?>" class="danger" style="font-size: 40px;">
                                 <ion-icon name="phone-portrait-outline"></ion-icon>
                             </a>
                         </div>
