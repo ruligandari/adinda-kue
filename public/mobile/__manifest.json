@@ -1,7 +1,7 @@
 {
-    "name": "Mobilekit",
-    "short_name": "Mobilekit",
-    "start_url": "index.html",
+    "name": "Adinda Kue",
+    "short_name": "Adinda Kue",
+    "start_url": "https://adinda.kapanitu.my.id/app/",
     "display": "standalone",
     "scope" : "/",
     "background_color": "#000000",
