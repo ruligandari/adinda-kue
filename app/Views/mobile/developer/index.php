@@ -20,6 +20,9 @@
         <div class="card">
             <div class="card-body">
                 <ul class="listview simple-listview">
+                    <center>
+                        <img src="<?= base_url('/profile/agung.jpg') ?>" height="300" width="200">
+                    </center>
                     <li>Nama : Agung Gunawan</li>
                     <li>NIM : 20180810043</li>
                     <li>Prodi: Teknik Informatika</li>
