@@ -50,9 +50,10 @@
             </div>
         </div>
     </div>
-
+    <br>
+    <br>
     <div class="section full mb-3 mt-3">
-        <div class="section-title">Single Carousel</div>
+        <div class="section-title">Toko A'dinda Kue</div>
 
         <div class="carousel-single owl-carousel owl-theme">
             <div class="item">
