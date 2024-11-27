@@ -57,13 +57,19 @@
 
         <div class="carousel-single owl-carousel owl-theme">
             <div class="item">
-                <img src="<?= base_url('mobile/') ?>assets/img/adinda1.webp" alt="alt" class="imaged w-100">
+                <img src="<?= base_url('mobile/') ?>assets/img/img1.webp" alt="alt" class="imaged w-100">
             </div>
             <div class="item">
-                <img src="<?= base_url('mobile/') ?>assets/img/adinda2.webp" alt="alt" class="imaged w-100">
+                <img src="<?= base_url('mobile/') ?>assets/img/img2.webp" alt="alt" class="imaged w-100">
             </div>
             <div class="item">
-                <img src="<?= base_url('mobile/') ?>assets/img/adinda3.webp" alt="alt" class="imaged w-100">
+                <img src="<?= base_url('mobile/') ?>assets/img/img3.webp" alt="alt" class="imaged w-100">
+            </div>
+            <div class="item">
+                <img src="<?= base_url('mobile/') ?>assets/img/img4.webp" alt="alt" class="imaged w-100">
+            </div>
+            <div class="item">
+                <img src="<?= base_url('mobile/') ?>assets/img/img5.webp" alt="alt" class="imaged w-100">
             </div>
         </div>
 
