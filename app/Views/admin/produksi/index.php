@@ -51,7 +51,7 @@
                                     <thead>
                                         <tr>
                                             <th class="text-center">
-                                                No
+                                                Nomor Produksi
                                             </th>
                                             <th>Nama Produk</th>
                                             <th>Berat (gram)</th>
@@ -66,7 +66,7 @@
                                         $no = 1;
                                         foreach ($produksi as $item) : ?>
                                             <tr>
-                                                <td class="text-center"><?= $no++ ?></td>
+                                                <td class="text-center"><?= $item['nomor_produksi'] ?></td>
                                                 <td><?= $item['nama_produk'] ?></td>
                                                 <td><?= $item['berat'] ?></td>
                                                 <td><?= $item['tanggal_produksi'] ?></td>
