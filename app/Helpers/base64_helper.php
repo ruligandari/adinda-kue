@@ -1,41 +1,67 @@
 <?php
-
-
-function encode($teks)
+function encode($plainText) // Mendefinisikan fungsi encode yang menerima satu parameter $teks
 {
-    $basis64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
-    $teks_enkripsi = '';
-    $panjang_teks = strlen($teks);
+    // AK25132123
+    $base64Table = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+    $asciiCodes = [];
+    $binaryString = '';
 
-    for ($i = 0; $i < $panjang_teks; $i += 3) {
-        $blok = (ord($teks[$i]) << 16) + ((($i + 1) < $panjang_teks) ? (ord($teks[$i + 1]) << 8) : 0) + (($i + 2) < $panjang_teks ? ord($teks[$i + 2]) : 0);
-
-        $teks_enkripsi .= $basis64[(($blok >> 18) & 0x3F)];
-        $teks_enkripsi .= $basis64[(($blok >> 12) & 0x3F)];
-        $teks_enkripsi .= (($i + 1) < $panjang_teks) ? $basis64[(($blok >> 6) & 0x3F)] : '=';
-        $teks_enkripsi .= (($i + 2) < $panjang_teks) ? $basis64[($blok & 0x3F)] : '=';
+    // 1. Konversi setiap karakter ke ASCII
+    for ($i = 0; $i < strlen($plainText); $i++) {
+        $asciiCodes[] = ord($plainText[$i]);
     }
 
-    return $teks_enkripsi;
+    // 2. Ubah kode ASCII menjadi biner 8-bit
+    foreach ($asciiCodes as $ascii) {
+        $binaryString .= str_pad(decbin($ascii), 8, '0', STR_PAD_LEFT);
+    }
+
+    // 3. Bagi biner menjadi blok 6-bit
+    $binaryString = str_split($binaryString, 6);
+
+    // 4. Tambahkan padding jika panjang biner tidak kelipatan 6
+    $lastBlockLength = strlen(end($binaryString));
+    if ($lastBlockLength < 6) {
+        $binaryString[count($binaryString) - 1] = str_pad(end($binaryString), 6, '0', STR_PAD_RIGHT);
+    }
+
+    // 5. Konversi setiap blok 6-bit ke desimal
+    $base64String = '';
+    foreach ($binaryString as $binary) {
+        $decimalValue = bindec($binary);
+        $base64String .= $base64Table[$decimalValue];
+    }
+
+    // 6. Tambahkan padding '=' jika panjang biner awal tidak kelipatan 24
+    while (strlen($base64String) % 4 !== 0) {
+        $base64String .= '=';
+    }
+
+    return $base64String;
 }
 
-function decode($teks_enkripsi)
+function decode($encodedText) // Mendefinisikan fungsi decode yang menerima satu parameter $teks_enkripsi
 {
-    $basis64 = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
-    $teks_asli = '';
-    $panjang_teks = strlen($teks_enkripsi);
+    $base64Table = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+    $binaryString = '';
 
-    for ($i = 0; $i < $panjang_teks; $i += 4) {
-        $blok = ($basis64[strpos($basis64, $teks_enkripsi[$i])] << 18) + ($basis64[strpos($basis64, $teks_enkripsi[$i + 1])] << 12) + (isset($teks_enkripsi[$i + 2]) ? ($basis64[strpos($basis64, $teks_enkripsi[$i + 2])] << 6) : 0) + (isset($teks_enkripsi[$i + 3]) ? $basis64[strpos($basis64, $teks_enkripsi[$i + 3])] : 0);
+    // 1. Hilangkan padding '='
+    $encodedText = rtrim($encodedText, '=');
 
-        $teks_asli .= chr(($blok >> 16) & 0xFF);
-        if (isset($teks_enkripsi[$i + 2])) {
-            $teks_asli .= chr(($blok >> 8) & 0xFF);
-        }
-        if (isset($teks_enkripsi[$i + 3])) {
-            $teks_asli .= chr($blok & 0xFF);
-        }
+    // 2. Ubah setiap karakter Base64 menjadi desimal, lalu ke biner 6-bit
+    for ($i = 0; $i < strlen($encodedText); $i++) {
+        $index = strpos($base64Table, $encodedText[$i]);
+        $binaryString .= str_pad(decbin($index), 6, '0', STR_PAD_LEFT);
     }
 
-    return $teks_asli;
+    // 3. Gabungkan blok biner 8-bit
+    $binaryString = str_split($binaryString, 8);
+
+    // 4. Konversi biner 8-bit ke ASCII
+    $decodedText = '';
+    foreach ($binaryString as $binary) {
+        $decodedText .= chr(bindec($binary));
+    }
+
+    return $decodedText;
 }
