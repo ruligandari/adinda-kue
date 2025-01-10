@@ -1,7 +1,7 @@
 <?php
 function encode($plainText) // Mendefinisikan fungsi encode yang menerima satu parameter $teks
 {
-    // AK25132123
+    // AK2412010001
     $base64Table = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
     $asciiCodes = [];
     $binaryString = '';
