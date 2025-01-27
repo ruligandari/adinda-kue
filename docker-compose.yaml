@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  adinda-kue:
+    build: .
+    container_name: adinda-kue
+    ports:
+      - "8083:80"  # Aplikasi 2
+    volumes:
+      - ./public:/app/public
+      - ./app:/app/app
+      - ./vendor:/app/vendor
+      - ./writable:/app/writable
+      - ./.env:/app/.env
+      - ./Caddyfile:/etc/caddy/Caddyfile
+    environment:
+      CI_ENVIRONMENT: production
+      DB_HOST: mysql  # Menghubungkan aplikasi dengan service MySQL
+      DB_USER: root
+      DB_PASSWORD: rootpassword
+      DB_DATABASE: adinda_kue
+    tty: true
+    networks:
+      - traefik
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.app2.rule=Host(`adinda.hellodev.my.id`)"
+      - "traefik.http.routers.app2.entrypoints=websecure"
+      - "traefik.http.routers.app2.tls.certresolver=myresolver" # Gunakan resolver yang telah diatur
+      - "traefik.http.services.app2.loadbalancer.server.port=80"
+    restart: always
+
+volumes:
+  db_data:
+
+networks:
+  traefik:
+    external:
+     name: traefik
